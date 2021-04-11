@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Buyer;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 
 class TransactionFactory extends Factory
 {
@@ -23,7 +23,7 @@ class TransactionFactory extends Factory
     public function definition()
     {
         return [
-            'buyer_id' => \App\Models\Buyer::factory(),
+            'buyer_id' => Buyer::factory(),
             'type' => $this->faker->randomElement([
                 'bonus',
                 'purchase',
@@ -38,7 +38,7 @@ class TransactionFactory extends Factory
             ]),
             'amount' => $this->faker->randomFloat(2, 0, 75000),
             'status' => 'completed',
-            'source' => $this->faker->randomElement(\App\Models\Transaction::sources()),
+            'source' => $this->faker->randomElement(Transaction::sources()),
             'memo' => $this->faker->sentence,
             'is_canceled' => false,
             'is_pending' => false,

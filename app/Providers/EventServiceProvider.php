@@ -19,7 +19,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         \App\Events\CoopCreating::class => [
-            '\App\Listeners\SetCoopStatus'
+            \App\Listeners\SetCoopStatus::class,
         ]
     ];
 

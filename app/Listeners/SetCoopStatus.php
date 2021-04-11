@@ -2,22 +2,11 @@
 
 namespace App\Listeners;
 
+use App\Enums\CoopStatus;
 use App\Events\CoopCreating;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class SetCoopStatus
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Handle the event.
      *
@@ -26,6 +15,6 @@ class SetCoopStatus
      */
     public function handle(CoopCreating $event)
     {
-        $event->coop->setAttribute('status', 'draft');
+        $event->coop->setAttribute('status', CoopStatus::DRAFT);
     }
 }
