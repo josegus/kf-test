@@ -16,13 +16,6 @@ class Coop extends Model
         'expiration_date' => 'date'
     ];
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        Coop::flushEventListeners();
-    }
-
     /**
      * The event map for the model.
      *

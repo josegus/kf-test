@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Coop;
 use App\Models\Purchase;
-use Illuminate\Foundation\Testing\WithoutEvents;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PurchaseRefundTest extends TestCase
@@ -15,11 +14,13 @@ class PurchaseRefundTest extends TestCase
     /** @test */
     public function show_how_many_coops_are_being_canceled()
     {
-        Coop::factory()
-            ->count(2)
-            ->has(Purchase::factory()->count(3))
-            ->approved()
-            ->create();
+        Coop::withoutEvents(function () {
+            Coop::factory()
+                ->count(2)
+                ->has(Purchase::factory()->count(3))
+                ->approved()
+                ->create();
+        });
 
         // Coop expires in two weeks, we need to travel to the future
         $this->travelTo(now()->addWeeks(3));
@@ -31,11 +32,15 @@ class PurchaseRefundTest extends TestCase
     /** @test */
     public function ensure_coop_is_canceled()
     {
-        $coops = Coop::factory()
-            ->count(2)
-            ->has(Purchase::factory()->count(3))
-            ->approved()
-            ->create();
+        $coops = collect([]);
+
+        Coop::withoutEvents(function () use (&$coops) {
+            $coops = Coop::factory()
+                ->count(2)
+                ->has(Purchase::factory()->count(3))
+                ->approved()
+                ->create();
+        });
 
         // Coop expires in two weeks, we need to travel to the future
         $this->travelTo(now()->addWeeks(3));
@@ -51,11 +56,15 @@ class PurchaseRefundTest extends TestCase
     /** @test */
     public function ensure_purchases_are_canceled()
     {
-        $coops = Coop::factory()
-            ->count(2)
-            ->has(Purchase::factory()->count(3))
-            ->approved()
-            ->create();
+        $coops = collect([]);
+
+        Coop::withoutEvents(function () use (&$coops) {
+            $coops = Coop::factory()
+                ->count(2)
+                ->has(Purchase::factory()->count(3))
+                ->approved()
+                ->create();
+        });
 
         // Coop expires in two weeks, we need to travel to the future
         $this->travelTo(now()->addWeeks(3));
