@@ -24,4 +24,9 @@ class Transaction extends Model
     {
         return $query->where('type', $type);
     }
+
+    public function cancel()
+    {
+        $this->update(['is_canceled' => true]);
+    }
 }

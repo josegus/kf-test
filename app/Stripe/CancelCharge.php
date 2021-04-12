@@ -5,10 +5,9 @@ namespace App\Actions\Stripe;
 class CancelCharge
 {
     /**
-     * Mimis a Stripe cancellation.
+     * Mimics a Stripe cancellation.
      *
-     * @param string $token string that identifies the target account.
-     * @param int $amount in cents
+     * @param string $identifier string that identifies the target account.
      */
     public function refund(string $identifier)
     {

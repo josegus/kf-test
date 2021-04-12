@@ -20,7 +20,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\CoopCreating::class => [
             \App\Listeners\SetCoopStatus::class,
-        ]
+        ],
+        \App\Events\CoopCanceled::class => [
+            \App\Listeners\CancelCoopPurchasesListener::class,
+            \App\Listeners\NotifyOwnerCoopCanceledListener::class,
+        ],
     ];
 
     /**

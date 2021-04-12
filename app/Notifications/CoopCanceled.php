@@ -23,7 +23,7 @@ class CoopCanceled extends Notification
      *
      * @param string $reason
      */
-    public function __construct(string $reason)
+    public function __construct(string $reason = 'Expiration date reached')
     {
         $this->reason = $reason;
     }

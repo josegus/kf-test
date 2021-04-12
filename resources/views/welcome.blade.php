@@ -19,7 +19,7 @@
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0">
             <div class="max-w-4xl mx-auto">
                 <div class="pt-8 flex items-center justify-between">
-                    <img src="https://www.kickfurther.com/images/homepage/kf-logo.png" alt="KF Logo" />
+                    <img src="https://www.kickfurther.com/images/logo.png" alt="KF Logo" />
                     <h3 class="bg-purple-500 font-semibold text-white rounded-full px-3 py-2 text-xs uppercase">👨‍💻 Coding Assignment</h3>
                 </div>
 

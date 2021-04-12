@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Brand;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BrandFactory extends Factory
@@ -22,7 +23,7 @@ class BrandFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->company() . ' - ' . Str::random(8),
             'email' => $this->faker->unique()->safeEmail(),
             'website' => $this->faker->optional()->url(),
         ];

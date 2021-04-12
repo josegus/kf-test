@@ -15,11 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
 Route::get('coops', [CoopsController::class, 'index'])->name('coops.index');
 Route::get('coops/{coop}', [CoopsController::class, 'show'])->name('coops.show');
 
-Route::post('coops/{coop}/fund', FundCoopController::class)->name('coops.fund');
+Route::post('coops/{coop}/fund', FundCoopController::class)->middleware('auth')->name('coops.fund');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

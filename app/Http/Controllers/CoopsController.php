@@ -9,7 +9,7 @@ class CoopsController
     public function index()
     {
         return view('coops.index', [
-            'coops' => Coop::approved()->get()
+            'coops' => Coop::approved()->paginate()
         ]);
     }
 

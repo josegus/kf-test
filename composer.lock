@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a16c3c541bd99241cab1c21ce8e83ac",
+    "content-hash": "cb1a6b9a450dfc1fc953ee35fd95229a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -892,6 +892,59 @@
                 "source": "https://github.com/guzzle/psr7/tree/1.8.1"
             },
             "time": "2021-03-21T16:25:00+00:00"
+        },
+        {
+            "name": "josegus/laravel-flash",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/josegus/laravel-flash.git",
+                "reference": "2187a74e9b3e378b70c5e4f62118254ee0d31f5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/josegus/laravel-flash/zipball/2187a74e9b3e378b70c5e4f62118254ee0d31f5c",
+                "reference": "2187a74e9b3e378b70c5e4f62118254ee0d31f5c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "^6.0|^7.0|^8.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JoseGus\\LaravelFlash\\LaravelFlashServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoseGus\\LaravelFlash\\": "src/"
+                },
+                "files": [
+                    "helpers/flash.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gustavo",
+                    "email": "jgvv15@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/josegus/laravel-flash/issues",
+                "source": "https://github.com/josegus/laravel-flash/tree/1.1.0"
+            },
+            "time": "2020-10-26T00:59:32+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5317,6 +5370,62 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v1.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "36f678dc65bdb09b5dbbb46051ab07d1a6f19962"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/36f678dc65bdb09b5dbbb46051ab07d1a6f19962",
+                "reference": "36f678dc65bdb09b5dbbb46051ab07d1a6f19962",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^8.0",
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2021-03-23T17:01:27+00:00"
         },
         {
             "name": "laravel/sail",

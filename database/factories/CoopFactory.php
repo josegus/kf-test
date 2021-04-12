@@ -28,7 +28,7 @@ class CoopFactory extends Factory
             'name' => $this->faker->sentence(),
             'expiration_date' => now()->addWeeks(2),
             'goal' => $this->faker->randomFloat(2, 1000, 1000000),
-            'status' => 'draft',
+            'status' => $this->faker->randomElement(['draft', 'approved', 'canceled']),
         ];
     }
 
@@ -41,7 +41,7 @@ class CoopFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'expiration_date' => now()->subWeek()
+                'expiration_date' => now()->subWeek(),
             ];
         });
     }
@@ -85,6 +85,18 @@ class CoopFactory extends Factory
             return [
                 'status' => 'canceled'
             ];
+        });
+    }
+
+    /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Coop $coop) {
+            Coop::flushEventListeners();
         });
     }
 }

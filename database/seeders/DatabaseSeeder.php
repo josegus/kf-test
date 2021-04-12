@@ -13,7 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Buyer::factory()->count(10)->create();
-        //Brand::factory()->count(10)->create();
+        $this->call(BuyerSeeder::class);
+        $this->call(BrandSeeder::class);
+        $this->call(CoopSeeder::class);
+        $this->call(PurchaseSeeder::class);
     }
 }
