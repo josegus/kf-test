@@ -19,6 +19,10 @@
                     <x-nav-link :href="route('coops.index')" :active="request()->routeIs('coops.index')">
                         Coops
                     </x-nav-link>
+
+                    <x-nav-link href="/horizon" target="_blank">
+                        Horizon
+                    </x-nav-link>
                 </div>
             </div>
 
