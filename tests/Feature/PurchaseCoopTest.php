@@ -8,7 +8,7 @@ use App\Models\Buyer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutEvents;
 
-class PurchaseTest extends TestCase
+class PurchaseCoopTest extends TestCase
 {
     use RefreshDatabase, WithoutEvents;
 
@@ -18,14 +18,12 @@ class PurchaseTest extends TestCase
         $coop = Coop::factory()->approved()->create();
 
         $response = $this->post("/coops/{$coop->id}/fund", [
-            'amount' => 500,
             'package_quantity' => 5,
             'package_id' => 1
         ]);
 
         $response->assertRedirect('/login');
     }
-
 
     /** @test */
     public function a_buyer_can_fund_a_coop_by_creating_a_purchase()
@@ -35,14 +33,12 @@ class PurchaseTest extends TestCase
 
         $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
-                'amount' => 500,
                 'package_quantity' => 5,
                 'package_id' => 1
             ]);
 
         $this->assertDatabaseCount('purchases', 1);
         $this->assertDatabaseHas('purchases', [
-            'amount' => 500,
             'package_quantity' => 5,
             'package_id' => 1
         ]);
@@ -56,14 +52,12 @@ class PurchaseTest extends TestCase
 
         $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
-                'amount' => 500,
                 'package_quantity' => 5,
                 'package_id' => 1
             ]);
 
         $this->assertEquals(1, $buyer->purchases()->count());
     }
-
 
     /** @test */
     public function redirect_back_to_coop_after_purchase_has_been_created()
@@ -73,14 +67,12 @@ class PurchaseTest extends TestCase
 
         $response = $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
-                'amount' => 500,
                 'package_quantity' => 5,
                 'package_id' => 1
             ]);
 
         $this->assertDatabaseCount('purchases', 1);
         $this->assertDatabaseHas('purchases', [
-            'amount' => 500,
             'package_quantity' => 5,
             'package_id' => 1
         ]);
@@ -97,7 +89,6 @@ class PurchaseTest extends TestCase
         $response = $this->actingAs($buyer)
             ->followingRedirects()
             ->post("/coops/{$coop->id}/fund", [
-                'amount' => 500,
                 'package_quantity' => 5,
                 'package_id' => 1
             ]);

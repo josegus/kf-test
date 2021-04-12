@@ -8,11 +8,6 @@
         <form class="mt-6" action="{{ route('coops.fund', $coop) }}" method="post">
             @csrf
 
-            <div>
-                <x-label class="w-full lg:w-1/4 inline-block" for="amount" value="Amount" />
-                <x-input class="w-full lg:w-1/2" id="amount" type="number" name="amount" min="1" :value="old('amount', 1)" />
-            </div>
-
             <div class="mt-4">
                 <x-label class="w-full lg:w-1/4 inline-block" for="package_quantity" value="Package quantity" />
                 <x-input class="w-full lg:w-1/2" id="package_quantity" type="number" name="package_quantity" min="1" :value="old('package_quantity', 1)" />
