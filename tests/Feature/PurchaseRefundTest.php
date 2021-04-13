@@ -21,10 +21,12 @@ class PurchaseRefundTest extends TestCase
     }
 
     /** @test */
-    public function coop_can_be_canceled()
+    public function a_coop_that_has_not_reached_its_goal_can_be_canceled()
     {
         // Create a coop that won't reach the goal
-        $coop = Coop::factory(['goal' => 100])->create();
+        $coop = Coop::factory(['goal' => 100])
+            ->has(Purchase::factory(['amount' => 10]))
+            ->create();
 
         // Coop expires in two weeks, we need to travel to the future
         $this->travelTo(now()->addDays(15));
