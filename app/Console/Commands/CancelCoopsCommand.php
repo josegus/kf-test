@@ -49,6 +49,7 @@ class CancelCoopsCommand extends Command
 
         if ($date = $this->option('date')) {
             $this->cancelCoopsByExpirationDate($date);
+            return;
         }
 
         $this->cancelCoopsExpiringToday();
