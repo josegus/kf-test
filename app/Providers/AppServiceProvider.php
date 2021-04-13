@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Actions\Stripe\RefundCharge;
+use App\Actions\Stripe\RefundChargeInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Bind stripe charge interface to container. This will be overwriten on tests
+        $this->app->instance(RefundChargeInterface::class, new RefundCharge);
     }
 
     /**

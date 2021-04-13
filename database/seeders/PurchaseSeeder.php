@@ -10,6 +10,16 @@ use Illuminate\Support\Collection;
 
 class PurchaseSeeder extends Seeder
 {
+    protected Collection $coops;
+
+    protected Collection $buyers;
+
+    public function __construct()
+    {
+        $this->coops = Coop::all();
+        $this->buyers = Buyer::all();
+    }
+
     /**
      * Run the database seeds.
      *
@@ -17,52 +27,48 @@ class PurchaseSeeder extends Seeder
      */
     public function run()
     {
-        $coops = Coop::all();
-        $buyers = Buyer::all();
-
         $count = (int)$this->command->ask('Amount of purchases', 500);
 
-        if ($coops->isNotEmpty()) {
-            $coopId = $this->command->ask('Enter the coop ID where all purchases will be created for');
-        }
+        $coopId = $this->command->ask('Enter the coop ID where all purchases will be created for. Leave empty for randomly seeding');
 
-        if ($coopId) {
-            $this->seedForSpecificCoop($coopId, $count, $buyers);
+        if ($coopId && Coop::find($coopId)) {
+            $this->seedForSpecificCoop($coopId, $count);
+
             return;
         }
 
         // Otherwise, seed randomly for coops and buyers
         foreach (range(1, $count) as $i) {
             Purchase::factory(
-                $this->attributes($coops, $buyers)
+                $this->attributes()
             )->create();
         }
     }
 
-    protected function seedForSpecificCoop(int $coopId, int $count, Collection $buyers)
+    protected function seedForSpecificCoop(int $coopId, int $count)
     {
         $attributes = [
             'coop_id' => $coopId,
         ];
 
         foreach (range(1, $count) as $i) {
-            if ($buyers->isNotEmpty()) {
-                $attributes['buyer_id'] = $buyers->random();
+            if ($this->buyers->isNotEmpty()) {
+                $attributes['buyer_id'] = $this->buyers->random();
             }
 
             Purchase::factory($attributes)->create();
         }
     }
 
-    protected function attributes($coops, $buyers)
+    protected function attributes()
     {
-        if ($coops->isEmpty() || $buyers->isEmpty()) {
+        if ($this->coops->isEmpty() || $this->buyers->isEmpty()) {
             return [];
         }
 
         return [
-            'coop_id' => $coops->random(),
-            'buyer_id' => $buyers->random(),
+            'coop_id' => $this->coops->random(),
+            'buyer_id' => $this->buyers->random(),
         ];
     }
 }

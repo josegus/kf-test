@@ -28,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\PurchaseCreated::class => [
             \App\Listeners\CreatePurchaseTransaction::class,
         ],
+        \App\Events\PurchaseRefunded::class => [
+            \App\Listeners\CreateRefundTransaction::class,
+        ],
     ];
 
     /**

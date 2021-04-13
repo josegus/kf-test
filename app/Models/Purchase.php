@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use App\Events\PurchaseCreated;
-use App\Actions\Stripe\RefundCharge;
+use App\Events\PurchaseRefunded;
+use App\Actions\Stripe\RefundChargeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -51,6 +52,12 @@ class Purchase extends Model
         return $this->hasOne(Transaction::class)->ofType('refund');
     }
 
+    public function hasBeenRefunded(): bool
+    {
+        return $this->coop_canceled
+            && $this->refundTransaction !== null;
+    }
+
     public function refund()
     {
         $this->purchaseWasDoneUsingOwnFundsOrCredits()
@@ -58,6 +65,9 @@ class Purchase extends Model
             : $this->refundByCreditCard();
 
         $this->update(['coop_canceled' => true]);
+
+        // Create transaction
+        PurchaseRefunded::dispatch($this);
     }
 
     protected function purchaseWasDoneUsingOwnFundsOrCredits(): bool
@@ -93,13 +103,13 @@ class Purchase extends Model
             return;
         }
 
-        info('starting refund purchase:' . $this->id);
+        info('starting stripe refund: ' . $this->id . ' - ' . now()->toTimeString());
 
-        (new RefundCharge)->refund(
+        app(RefundChargeInterface::class)->refund(
             $this->banking_customer_token,
             $this->amount
         );
 
-        info('finished refund purchase:' . $this->id);
+        info('finished stripe refund: ' . $this->id . ' - ' . now()->toTimeString());
     }
 }

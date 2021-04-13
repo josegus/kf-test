@@ -2,7 +2,7 @@
 
 namespace App\Actions\Stripe;
 
-class RefundCharge implements RefundChargeInterface
+class FakeRefundCharge implements RefundChargeInterface
 {
     /**
      * Mimics a Stripe refund
@@ -12,8 +12,6 @@ class RefundCharge implements RefundChargeInterface
      */
     public function refund(string $token, int $amount)
     {
-        sleep(10);
-
         return true;
     }
 }

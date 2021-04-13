@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('kf:cancel-coops')->daily();
+        $schedule->command('queue:prune-batches --hours=48 --unfinished=72')->daily();
     }
 
     /**

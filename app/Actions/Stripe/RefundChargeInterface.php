@@ -2,7 +2,7 @@
 
 namespace App\Actions\Stripe;
 
-class RefundCharge implements RefundChargeInterface
+interface RefundChargeInterface
 {
     /**
      * Mimics a Stripe refund
@@ -10,10 +10,5 @@ class RefundCharge implements RefundChargeInterface
      * @param string $token string that identifies the target account.
      * @param int $amount in cents
      */
-    public function refund(string $token, int $amount)
-    {
-        sleep(10);
-
-        return true;
-    }
+    public function refund(string $token, int $amount);
 }

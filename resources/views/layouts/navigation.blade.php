@@ -23,6 +23,10 @@
                     <x-nav-link href="/horizon" target="_blank">
                         Horizon
                     </x-nav-link>
+
+                    <x-nav-link href="/horizon" target="_blank">
+                        LogViewer
+                    </x-nav-link>
                 </div>
             </div>
 
