@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use App\Events\CoopCanceled as EventsCoopCanceled;
 use App\Models\Coop;
 use App\Models\Purchase;
 use App\Notifications\CoopCanceled;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
-use App\Events\CoopCanceled as EventsCoopCanceled;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CoopTest extends TestCase
 {

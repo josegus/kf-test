@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Events\CoopCanceled;
 use App\Events\CoopCreating;
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Coop extends Model
 {
@@ -15,7 +15,7 @@ class Coop extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $casts = [
-        'expiration_date' => 'date'
+        'expiration_date' => 'date',
     ];
 
     /**

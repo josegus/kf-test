@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Models\Buyer;
+use Tests\TestCase;
 
 class BuyerTest extends TestCase
 {

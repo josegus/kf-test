@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Coop;
-use App\Models\Purchase;
 use App\Actions\Stripe\FakeRefundCharge;
 use App\Actions\Stripe\RefundChargeInterface;
+use App\Models\Coop;
+use App\Models\Purchase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PurchaseRefundTest extends TestCase
 {
@@ -95,14 +95,14 @@ class PurchaseRefundTest extends TestCase
             'coop_id' => $coop->id,
             'purchase_id' => $coop->purchases[0]->id,
             'type' => 'refund',
-            'amount' => 10
+            'amount' => 10,
         ]);
 
         $this->assertDatabaseHas('transactions', [
             'coop_id' => $coop->id,
             'purchase_id' => $coop->purchases[1]->id,
             'type' => 'refund',
-            'amount' => 20
+            'amount' => 20,
         ]);
     }
 }

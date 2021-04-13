@@ -24,7 +24,7 @@ class CreateRefundTransaction
             'source' => 'wire',
             'memo' => 'memo',
             'is_canceled' => false,
-            'is_pending' => false
+            'is_pending' => false,
         ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coop;
 use App\Models\Buyer;
+use App\Models\Coop;
 use App\Models\Purchase;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;

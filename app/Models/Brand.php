@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 class Brand extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     public function coops()
     {

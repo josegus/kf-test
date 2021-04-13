@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Actions\Stripe\RefundChargeInterface;
 use App\Events\PurchaseCreated;
 use App\Events\PurchaseRefunded;
-use App\Actions\Stripe\RefundChargeInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
@@ -74,7 +74,7 @@ class Purchase extends Model
     {
         return in_array($this->purchaseTransaction->source, [
             'KickfurtherCredits',
-            'KickfurtherFunds'
+            'KickfurtherFunds',
         ]);
     }
 
@@ -89,6 +89,7 @@ class Purchase extends Model
 
         if ($transaction->is_pending) {
             $transaction->cancel();
+
             return;
         }
 

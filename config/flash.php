@@ -44,7 +44,7 @@ return [
         /*
          * Used when a resource has been deleted
          */
-        'deleted' => 'Deleted successfully'
+        'deleted' => 'Deleted successfully',
     ],
 
     /*
@@ -79,5 +79,5 @@ return [
          * Extra class applied to alert validation
          */
         'class' => 'fade show',
-    ]
+    ],
 ];

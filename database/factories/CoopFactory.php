@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Coop;
 use App\Models\Brand;
+use App\Models\Coop;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CoopFactory extends Factory
@@ -56,7 +56,7 @@ class CoopFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => 'draft'
+                'status' => 'draft',
             ];
         });
     }

@@ -6,8 +6,8 @@ use App\Models\Buyer;
 use App\Models\Coop;
 use App\Models\Package;
 use App\Models\Purchase;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class PurchaseFactory extends Factory
 {

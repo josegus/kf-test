@@ -26,7 +26,7 @@ class CreatePurchaseTransaction
             'source' => Arr::random(Transaction::sources()),
             'memo' => 'memo',
             'is_canceled' => false,
-            'is_pending' => false
+            'is_pending' => false,
         ]);
     }
 }

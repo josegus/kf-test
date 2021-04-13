@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 
 class Buyer extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     public static function refundPreferences()
     {

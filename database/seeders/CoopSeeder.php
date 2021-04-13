@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coop;
 use App\Models\Brand;
+use App\Models\Coop;
 use Illuminate\Database\Seeder;
 
 class CoopSeeder extends Seeder

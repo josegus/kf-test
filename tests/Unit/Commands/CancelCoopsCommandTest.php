@@ -32,7 +32,8 @@ class CancelCoopsCommandTest extends TestCase
         // We don't have access to cron scheduling, fire command manually
         $this->artisan(
             'kf:cancel-coops',
-            ['--coop' => $coop->id])
+            ['--coop' => $coop->id]
+        )
         ->expectsOutput('Canceling 1 coop');
     }
 

@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Carbon\Carbon;
 use App\Models\Coop;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class CancelCoopsCommand extends Command

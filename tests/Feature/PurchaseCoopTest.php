@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Coop;
 use App\Models\Buyer;
+use App\Models\Coop;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithoutEvents;
+use Tests\TestCase;
 
 class PurchaseCoopTest extends TestCase
 {
@@ -19,7 +18,7 @@ class PurchaseCoopTest extends TestCase
 
         $response = $this->post("/coops/{$coop->id}/fund", [
             'package_quantity' => 5,
-            'package_id' => 1
+            'package_id' => 1,
         ]);
 
         $response->assertRedirect('/login');
@@ -34,13 +33,13 @@ class PurchaseCoopTest extends TestCase
         $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
                 'package_quantity' => 5,
-                'package_id' => 1
+                'package_id' => 1,
             ]);
 
         $this->assertDatabaseCount('purchases', 1);
         $this->assertDatabaseHas('purchases', [
             'package_quantity' => 5,
-            'package_id' => 1
+            'package_id' => 1,
         ]);
     }
 
@@ -53,7 +52,7 @@ class PurchaseCoopTest extends TestCase
         $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
                 'package_quantity' => 5,
-                'package_id' => 1
+                'package_id' => 1,
             ]);
 
         $this->assertEquals(1, $buyer->purchases()->count());
@@ -68,14 +67,14 @@ class PurchaseCoopTest extends TestCase
         $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
                 'package_quantity' => 5,
-                'package_id' => 1
+                'package_id' => 1,
             ]);
 
         $this->assertDatabaseCount('transactions', 1);
         $this->assertDatabaseHas('transactions', [
             'buyer_id' => $buyer->id,
             'coop_id' => $coop->id,
-            'type' => 'purchase'
+            'type' => 'purchase',
         ]);
     }
 
@@ -88,13 +87,13 @@ class PurchaseCoopTest extends TestCase
         $response = $this->actingAs($buyer)
             ->post("/coops/{$coop->id}/fund", [
                 'package_quantity' => 5,
-                'package_id' => 1
+                'package_id' => 1,
             ]);
 
         $this->assertDatabaseCount('purchases', 1);
         $this->assertDatabaseHas('purchases', [
             'package_quantity' => 5,
-            'package_id' => 1
+            'package_id' => 1,
         ]);
 
         $response->assertRedirect("/coops/{$coop->id}");
@@ -110,7 +109,7 @@ class PurchaseCoopTest extends TestCase
             ->followingRedirects()
             ->post("/coops/{$coop->id}/fund", [
                 'package_quantity' => 5,
-                'package_id' => 1
+                'package_id' => 1,
             ]);
 
         $response->assertSee('Thanks for purchasing');
