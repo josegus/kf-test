@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Purchase;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -9,22 +10,21 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Coop;
 
-class CoopCanceled
+class PurchaseCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public Coop $coop;
+    public Purchase $purchase;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Coop $coop)
+    public function __construct(Purchase $purchase)
     {
-        $this->coop = $coop;
+        $this->purchase = $purchase;
     }
 
     /**

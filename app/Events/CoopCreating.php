@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Coop;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -14,12 +15,14 @@ class CoopCreating
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public Coop $coop;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(\App\Models\Coop $coop)
+    public function __construct(Coop $coop)
     {
         $this->coop = $coop;
     }

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\CoopCanceled;
+use App\Jobs\RefundPurchase;
 
 class CancelCoopPurchasesListener
 {
@@ -14,6 +15,8 @@ class CancelCoopPurchasesListener
      */
     public function handle(CoopCanceled $event)
     {
-        $event->coop->purchases()->update(['coop_canceled' => true]);
+        foreach ($event->coop->purchases as $purchase) {
+            RefundPurchase::dispatch($purchase);
+        }
     }
 }

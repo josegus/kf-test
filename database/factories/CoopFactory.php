@@ -22,13 +22,13 @@ class CoopFactory extends Factory
      */
     public function definition()
     {
-        // status: draft, approved, canceled
+        // status: draft, canceled
         return [
             'brand_id' => Brand::factory(),
             'name' => $this->faker->sentence(),
             'expiration_date' => now()->addWeeks(2),
             'goal' => $this->faker->randomFloat(2, 1000, 1000000),
-            'status' => $this->faker->randomElement(['draft', 'approved', 'canceled']),
+            'status' => 'draft',
         ];
     }
 
@@ -42,6 +42,7 @@ class CoopFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'expiration_date' => now()->subWeek(),
+                'canceled' => true,
             ];
         });
     }
@@ -61,20 +62,6 @@ class CoopFactory extends Factory
     }
 
     /**
-     * Indicates the coop has been approved.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function approved()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'status' => 'approved'
-            ];
-        });
-    }
-
-    /**
      * Indicates the coop has been canceled.
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
@@ -83,7 +70,8 @@ class CoopFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => 'canceled'
+                'status' => 'canceled',
+                'expiration_date' => now()->subWeek(),
             ];
         });
     }
@@ -95,6 +83,7 @@ class CoopFactory extends Factory
      */
     public function configure()
     {
+        // Doesn't work
         return $this->afterCreating(function (Coop $coop) {
             Coop::flushEventListeners();
         });

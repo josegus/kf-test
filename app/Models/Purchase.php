@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Actions\Stripe\CancelCharge;
+use App\Events\PurchaseCreated;
 use App\Actions\Stripe\RefundCharge;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Purchase extends Model
 {
@@ -15,6 +15,15 @@ class Purchase extends Model
 
     protected $casts = [
         'coop_canceled' => 'bool',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'created' => PurchaseCreated::class,
     ];
 
     public function coop()
@@ -51,20 +60,20 @@ class Purchase extends Model
         $this->update(['coop_canceled' => true]);
     }
 
-    public function purchaseWasDoneUsingOwnFundsOrCredits(): bool
+    protected function purchaseWasDoneUsingOwnFundsOrCredits(): bool
     {
-        return in_array($this->purchaseTransaction->source(), [
+        return in_array($this->purchaseTransaction->source, [
             'KickfurtherCredits',
             'KickfurtherFunds'
         ]);
     }
 
-    public function refundToOwnCredits()
+    protected function refundToOwnCredits()
     {
         // refunding..
     }
 
-    public function refundByCreditCard()
+    protected function refundByCreditCard()
     {
         $transaction = $this->purchaseTransaction;
 
@@ -77,16 +86,20 @@ class Purchase extends Model
         $this->refundByBuyerPreference();
     }
 
-    public function refundByBuyerPreference()
+    protected function refundByBuyerPreference()
     {
         if ($this->buyer->prefersCreditRefund()) {
             // Refund to buyer's credit
             return;
         }
 
+        info('starting refund purchase:' . $this->id);
+
         (new RefundCharge)->refund(
             $this->banking_customer_token,
             $this->amount
         );
+
+        info('finished refund purchase:' . $this->id);
     }
 }

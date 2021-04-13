@@ -25,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\CancelCoopPurchasesListener::class,
             \App\Listeners\NotifyOwnerCoopCanceledListener::class,
         ],
+        \App\Events\PurchaseCreated::class => [
+            \App\Listeners\CreatePurchaseTransaction::class,
+        ],
     ];
 
     /**

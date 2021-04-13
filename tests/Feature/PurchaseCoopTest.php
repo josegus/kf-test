@@ -10,12 +10,12 @@ use Illuminate\Foundation\Testing\WithoutEvents;
 
 class PurchaseCoopTest extends TestCase
 {
-    use RefreshDatabase, WithoutEvents;
+    use RefreshDatabase;
 
     /** @test */
     public function only_authenticated_buyers_can_purchase()
     {
-        $coop = Coop::factory()->approved()->create();
+        $coop = Coop::factory()->create();
 
         $response = $this->post("/coops/{$coop->id}/fund", [
             'package_quantity' => 5,
@@ -28,7 +28,7 @@ class PurchaseCoopTest extends TestCase
     /** @test */
     public function a_buyer_can_fund_a_coop_by_creating_a_purchase()
     {
-        $coop = Coop::factory()->approved()->create();
+        $coop = Coop::factory()->create();
         $buyer = Buyer::factory()->create();
 
         $this->actingAs($buyer)
@@ -47,7 +47,7 @@ class PurchaseCoopTest extends TestCase
     /** @test */
     public function purchase_has_owner_after_creating()
     {
-        $coop = Coop::factory()->approved()->create();
+        $coop = Coop::factory()->create();
         $buyer = Buyer::factory()->create();
 
         $this->actingAs($buyer)
@@ -60,9 +60,29 @@ class PurchaseCoopTest extends TestCase
     }
 
     /** @test */
+    public function creates_a_transaction_after_purchase_has_been_created()
+    {
+        $coop = Coop::factory()->create();
+        $buyer = Buyer::factory()->create();
+
+        $this->actingAs($buyer)
+            ->post("/coops/{$coop->id}/fund", [
+                'package_quantity' => 5,
+                'package_id' => 1
+            ]);
+
+        $this->assertDatabaseCount('transactions', 1);
+        $this->assertDatabaseHas('transactions', [
+            'buyer_id' => $buyer->id,
+            'coop_id' => $coop->id,
+            'type' => 'purchase'
+        ]);
+    }
+
+    /** @test */
     public function redirect_back_to_coop_after_purchase_has_been_created()
     {
-        $coop = Coop::factory()->approved()->create();
+        $coop = Coop::factory()->create();
         $buyer = Buyer::factory()->create();
 
         $response = $this->actingAs($buyer)
@@ -83,7 +103,7 @@ class PurchaseCoopTest extends TestCase
     /** @test */
     public function display_a_success_message_after_purchase_has_been_created()
     {
-        $coop = Coop::factory()->approved()->create();
+        $coop = Coop::factory()->create();
         $buyer = Buyer::factory()->create();
 
         $response = $this->actingAs($buyer)
