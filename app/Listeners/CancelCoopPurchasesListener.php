@@ -2,8 +2,9 @@
 
 namespace App\Listeners;
 
-use App\Events\CoopCanceled;
+use App\Models\Coop;
 use App\Jobs\RefundPurchase;
+use App\Events\CoopCanceled;
 use Illuminate\Support\Facades\Bus;
 
 class CancelCoopPurchasesListener
@@ -16,19 +17,33 @@ class CancelCoopPurchasesListener
      */
     public function handle(CoopCanceled $event)
     {
+        $coop = $event->coop;
+
+        // If the coop has no purchaes, just change its status
+        if ($coop->purchases()->count() === 0) {
+            $coop->update(['status' => 'canceled']);
+
+            return;
+        }
+
+        $this->queueRefundPurchasesJob($coop);
+    }
+
+    protected function queueRefundPurchasesJob(Coop $coop)
+    {
         $jobs = [];
 
         // This can be done using collection
-        foreach ($event->coop->purchases as $purchase) {
+        foreach ($coop->purchases as $purchase) {
             $jobs[] = new RefundPurchase($purchase);
         }
 
         Bus::batch($jobs)
-            ->then(function () use ($event) {
-                $event->coop->update(['status' => 'canceled']);
+            ->finally(function () use ($coop) {
+                $coop->update(['status' => 'canceled']);
             })
             ->onQueue('refund')
-            ->name('Cancel coops purchase')
+            ->name('Refund purchases')
             ->dispatch();
     }
 }

@@ -27,3 +27,6 @@ Please, make sure to use `redis` as queue driver to check this.
 
 ## Tests
 There are many tests for some edge cases, like seeing only coops in draft and refunding each purchase successfully.
+
+## Docker
+The app has been tested on valet and docker, using sail.
