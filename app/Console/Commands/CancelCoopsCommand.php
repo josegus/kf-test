@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Coop;
 use Carbon\Carbon;
+use App\Models\Coop;
 use Illuminate\Console\Command;
 
 class CancelCoopsCommand extends Command
@@ -51,7 +51,7 @@ class CancelCoopsCommand extends Command
             $this->cancelCoopsByExpirationDate($date);
         }
 
-        $this->cancelCoopsExpiredToday();
+        $this->cancelCoopsExpiringToday();
     }
 
     protected function cancelSingleCoop($coopId)
@@ -60,7 +60,7 @@ class CancelCoopsCommand extends Command
 
         $coop->cancel();
 
-        $this->info("Coops canceled: 1");
+        $this->info("Canceling 1 coop");
     }
 
     protected function cancelCoopsByExpirationDate(string $date)
@@ -73,10 +73,10 @@ class CancelCoopsCommand extends Command
             $coop->cancel();
         }
 
-        $this->info("Coops canceled: {$coops->count()}");
+        $this->info("Canceling {$coops->count()} coops");
     }
 
-    protected function cancelCoopExpiredToday()
+    protected function cancelCoopsExpiringToday()
     {
         $coops = Coop::toBeCancelToday()->get();
 
@@ -84,6 +84,6 @@ class CancelCoopsCommand extends Command
             $coop->cancel();
         }
 
-        $this->info("Coops canceled: {$coops->count()}");
+        $this->info("Canceling {$coops->count()} coops");
     }
 }
